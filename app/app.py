@@ -248,12 +248,12 @@ footer { visibility: hidden; }
 """, unsafe_allow_html=True)
 
 # ---------------- LOAD DATA ----------------
-DATA_PATH = "imp_outputs/"
+DATA_PATH = "output/"
 
 demand_trend = pd.read_csv(DATA_PATH + "demand_monthly_summary.csv")
 risk_data = pd.read_csv(DATA_PATH + "district_risk_all_levels_final.csv")
 spike_alerts = pd.read_csv(DATA_PATH + "demand_spike_alerts.csv")
-actions = pd.read_csv(DATA_PATH + "decision_actions_final.csv")
+actions = pd.read_csv(DATA_PATH + "final_decision_action_cleaned.csv")
 
 spike_alerts["year_month"] = pd.to_datetime(spike_alerts["year_month"], format="%Y-%m")
 spike_alerts["year_month"] = spike_alerts["year_month"].dt.strftime("%Y-%b")
@@ -445,7 +445,7 @@ st.caption(
 
 spike_df = spike_alerts.copy()
 
-spike_df["spike_label"] = spike_df["spike_flag"].map({
+spike_df["spike_label"] = spike_df["spike_level"].map({
     "HIGH_SPIKE": "High",
     "MEDIUM_SPIKE": "Medium",
     "NORMAL": "Low"
